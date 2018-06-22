@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cheng.dao.SeckillDao">
+    <!-- 目的：为dao接口提供sql语句配置 -->
+
+    <!--
+    在 XML 中有 5 个预定义的实体引用：
+        &lt;	<	小于
+        &gt;	>	大于
+        &amp;	&	和号
+        &apos;	'	省略号
+        &quot;	"	引号
+    -->
+    <update id="reduceNumber">
+        <!--具体的sql语句-->
+        UPDATE seckill SET NUMBER = NUMBER - 1
+        WHERE seckill_id=#{seckillId}
+        AND start_time <![CDATA[ <= ]]> #{killTime}
+        AND end_time >= #{killTime}
+        AND NUMBER >0;
+    </update>
+
+    <select id="queryById" resultType="Seckill" parameterType="long">
+      SELECT seckill_id, name, NUMBER , start_time, end_time, create_time
+      FROM seckill
+      WHERE seckill_id = #{seckillId}
+
+    </select>
+
+    <select id="queryAll" resultType="Seckill">
+        SELECT seckill_id,NAME,NUMBER,start_time,end_time,create_time
+        FROM seckill
+        ORDER BY create_time DESC
+        limit #{offset},#{limit}
+    </select>
+
+</mapper>
