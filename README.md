@@ -47,3 +47,11 @@ https://blog.csdn.net/jsloveyou/article/details/79044381
 - 依赖管理工具: Maven 3.3.9
 
 - 框架: springMvc + spring + mybatis
+
+## IDEA 快捷键
+- Ctrl+Shift+N按文件名搜索文件
+- Ctrl+N按名字搜索类
+- Ctrl+H 查看类的继承关系
+
+## reference:
+https://github.com/iamycx/Spring-learning/blob/master/seckill/src/main/resources/mapper/SuccessKilledDao.xml
