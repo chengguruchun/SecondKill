@@ -54,27 +54,33 @@ public class SeckillServiceTest {
 //         */
 //    }
 //
-//    @Test
-//    public void executeSeckill() throws Exception {
-//        long seckillId = 1000;
-//        long userPhone = 177232949822L;
-//        String md5 = "fkjfwejfjfeijefi";
-//        try {
-//            SeckillExecution execution = seckillService.executeSeckill(seckillId, userPhone, md5);
-//            logger.info("result={}",execution);
-//        } catch (RepeatKillException e) {
-//            logger.error(e.getMessage());
-//        } catch (SeckillCloseException e) {
-//            logger.error(e.getMessage());
-//        }
-//    }
+
+    /**
+     * 12:20:16.376 [main] INFO  com.cheng.service.SeckillServiceTest - result=com.cheng.dto.SeckillExecution@14f9390f
+
+     * @throws Exception
+     */
+    @Test
+    public void executeSeckill() throws Exception {
+        long seckillId = 1000;
+        long userPhone = 177232949822L;
+        String md5 = "fkjfwejfjfeijefi";
+        try {
+            SeckillExecution execution = seckillService.executeSeckill(seckillId, userPhone, md5);
+            logger.info("result={}",execution);
+        } catch (RepeatKillException e) {
+            logger.error(e.getMessage());
+        } catch (SeckillCloseException e) {
+            logger.error(e.getMessage());
+       }
+    }
 
     //将上面两个测试代码集成完整逻辑，注意可以重复执行
     @Test
     public void testSeckillLogic() throws Exception {
-        long seckillId = 1002;
+        long seckillId = 1000;
         Exposer exposer = seckillService.exportSeckillUrl(seckillId);
-
+        //exposer.setMd5("oooo");//md5由前台穿过来~~
         if (exposer.isExposed()){
             logger.info("exposer={}",exposer);
             long userPhone = 177232949822L;

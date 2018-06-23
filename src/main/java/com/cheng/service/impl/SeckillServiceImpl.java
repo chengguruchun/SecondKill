@@ -133,6 +133,5 @@ public class SeckillServiceImpl implements SeckillService{
             //所有编译期异常，转化为运行期异常
             throw new SeckillException("seckill inner error:" + e.getMessage());
         }
-
     }
 }
