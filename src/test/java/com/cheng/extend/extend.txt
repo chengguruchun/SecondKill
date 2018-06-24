@@ -6,7 +6,7 @@ https://www.yiibai.com/mysql/table-locking.html
 2:行级锁
 共享锁  和 排它锁
 
-
+3.1：秒杀优化  http://www.cnblogs.com/luyucheng/p/6340758.html
 
 3：存储过程
 
@@ -70,7 +70,7 @@ https://blog.csdn.net/u012164361/article/details/69676316
 
 7：CDN
 https://www.cnblogs.com/losbyday/p/5843960.html
-
+https://blog.csdn.net/zhouziyu2011/article/details/60962103
 https://blog.csdn.net/coolmeme/article/details/9468743
 CDN网络是在用户和服务器之间增加Cache层，如何将用户的请求引导到Cache上获得源服务器的数据，主要是通过接管DNS实现，
 这就是CDN的最基本的原理，当然很多细节没有涉及到，比如第1步，首先向本地的DNS服务器请求。第5步，内容淘汰机制（根据TTL）

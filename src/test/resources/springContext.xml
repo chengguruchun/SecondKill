@@ -10,15 +10,16 @@
    http://www.springframework.org/schema/tx
    http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!-- 扫描service报下所有注解的类型 ,也包括子包 -->
-    <context:component-scan base-package="com.cheng.service"/>
-   <!-- 配置事务管理器-->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
+    <bean id="a" class="com.cheng.circular_dependency.StudentA">
+        <constructor-arg index="0" ref="b"></constructor-arg>
 
     </bean>
 
-    <!-- 配置基于注解的声明式事务-->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id="b" class="com.cheng.circular_dependency.StudentB">
+        <constructor-arg index="0" ref="c"></constructor-arg>
+    </bean>
+    <bean id="c" class="com.cheng.circular_dependency.StudentC">
+        <constructor-arg index="0" ref="a"></constructor-arg>
+    </bean>
 
 </beans>
