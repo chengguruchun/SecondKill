@@ -101,7 +101,8 @@ public class SeckillServiceImpl implements SeckillService{
     @Transactional
     @Override
     public SeckillExecution executeSeckill(long seckillId, long userPhone, String md5) throws SeckillException, RepeatKillException, SeckillCloseException {
-        if (md5 == null || md5.equals(this.getMd5(seckillId))) {
+        if (md5 == null || !md5.equals(this.getMd5(seckillId))) {
+            System.out.println(md5 + "----" + this.getMd5(seckillId));
             throw new SeckillException("seckill data rewrite");
         }
 
