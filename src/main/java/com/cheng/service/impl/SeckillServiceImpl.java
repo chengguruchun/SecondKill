@@ -2,6 +2,7 @@ package com.cheng.service.impl;
 
 import com.cheng.dao.SeckillDao;
 import com.cheng.dao.SuccessKillDao;
+import com.cheng.dao.cache.RedisDao;
 import com.cheng.dto.Exposer;
 import com.cheng.dto.SeckillExecution;
 import com.cheng.entity.Seckill;
@@ -37,6 +38,8 @@ public class SeckillServiceImpl implements SeckillService{
     //按类型注入
     @Autowired
     private SeckillDao seckillDao;
+    @Autowired
+    private RedisDao redisDao;
 
     @Autowired
     private SuccessKillDao successKillDao;
@@ -57,10 +60,29 @@ public class SeckillServiceImpl implements SeckillService{
 
     @Override
     public Exposer exportSeckillUrl(long seckillId) {
-        Seckill seckill = seckillDao.queryById(seckillId);
-        if (seckill == null) {
 
-            return new Exposer(false, seckillId);
+        //优化点：
+        /**
+         * get from cache
+         *  if null
+         *    get db
+         *    else
+         *      put cache
+         *
+         */
+
+        //访问redis
+        Seckill seckill = redisDao.getSeckill(seckillId);
+        if (seckill == null) {
+            //第二部：查数据库
+             seckill = seckillDao.queryById(seckillId);
+            if (seckill == null) {
+
+                return new Exposer(false, seckillId);
+            }else {
+                //第三部：插入到数据库中
+                redisDao.putSeckill(seckill);
+            }
         }
 
         Date startTime = seckill.getStartTime();
