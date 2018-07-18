@@ -53,5 +53,3 @@ https://blog.csdn.net/jsloveyou/article/details/79044381
 - Ctrl+N按名字搜索类
 - Ctrl+H 查看类的继承关系
 
-## reference:
-https://github.com/iamycx/Spring-learning/blob/master/seckill/src/main/resources/mapper/SuccessKilledDao.xml
