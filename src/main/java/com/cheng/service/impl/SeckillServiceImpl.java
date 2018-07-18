@@ -59,7 +59,8 @@ public class SeckillServiceImpl implements SeckillService{
     }
 
     @Override
-    public Exposer exportSeckillUrl(long seckillId) {
+    //整个加锁，肯定影响并发的效率
+    public /*synchronized*/ Exposer exportSeckillUrl(long seckillId) {
 
         //优化点：
         /**
@@ -75,13 +76,16 @@ public class SeckillServiceImpl implements SeckillService{
         Seckill seckill = redisDao.getSeckill(seckillId);
         if (seckill == null) {
             //第二部：查数据库
-             seckill = seckillDao.queryById(seckillId);
-            if (seckill == null) {
+            //防止缓存穿透---二次检测， 或者考虑使用布隆过滤器
+            synchronized (this) {
+                seckill = seckillDao.queryById(seckillId);
+                if (seckill == null) {
 
-                return new Exposer(false, seckillId);
-            }else {
-                //第三部：插入到数据库中
-                redisDao.putSeckill(seckill);
+                    return new Exposer(false, seckillId);
+                }else {
+                    //第三部：插入到数据库中
+                    redisDao.putSeckill(seckill);
+                }
             }
         }
 
